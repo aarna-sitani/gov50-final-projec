@@ -15,4 +15,35 @@ I am interested in exploring data related to...
 analyzing political campaign finance, customer behavior in online retail, patterns of employee productivity, social media influence on brand awareness
 
 
-## Milestone #2
+## Milestone #2: What is the relationship between the years of educational attainment and the number of hours worked per week?  My data analysis intends to identify whether there are any patterns between the time people spend in school and the time they spend working post-education.  My hypothesis is that those who spend more time in school end up spending more hours working per week — essentially a positive correlation between the two variables.  This is because I would assume that those who continue their academic career beyond college into graduate schools, masters, and PhD programs find themselves deeply attached to their work and are willing to pursue time additional to what is necessary in their field of study.  This willingness to —-spend extra time—- likely is driven from seeing their careers as an area of genuine passion, not just a way to make money, so it would make sense that post-education, these people would continue investing more of their time in working.  That being said, though, there is also the potential confounding variable of income.  Oftentimes, high-paying jobs require continued education, like medicine school or law, and these professions also have demanding working hours.  For the study, my explanatory variable is the number of years of education, and it will be coded as =[number of years of education].  More specifically, if the variable were coded as =9, that would mean, at one data point, someone spent 9 years in school.  My outcome variable is the number of hours worked per week, and it will be coded as =[number of hours worked per week].  If after running the regression analysis, the data reveals a positive, significant coefficient, I would receive evidence supporting my hypothesis.  If there results a negative coefficient from my data, the evidence would disprove my hypothesis. 
+
+
+
+
+## Milestone #3
+
+```{r}
+library(ggplot2)
+data <- read.csv("adult_test")
+
+ggplot(data, aes(x = education-num, y = hours-per-week)) + 
+  geom_point(alpha = 0.5) + 
+  labs(title = "Relationship between Education and Hours Worked",
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal() + 
+```
+
+
+## Milestone #4
+
+```{r}
+ggplot(data, aes(x = as.factor(education-num), y = hours-per-week)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7) + 
+  labs(title = "Distribution of Hours Worked by Education Level",
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
