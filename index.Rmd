@@ -54,10 +54,37 @@ ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) +
 ## (1) Introduction: This study intends to answer the following question: do people who receive more years of education ultimately spend more hours working per week?  My data analysis aims to identify whether patterns exist between the duration individuals dedicate to schooling and the time they allocate to work post-education. My hypothesis posts a positive correlation between extended educational commitment and increased weekly working hours.  The underlying assumption is that individuals pursuing advanced academic paths, such as graduate studies, masters, and PhD programs, tend to be deeply committed to their work.  They are likely to invest additional time beyond the basic requirement of their field of study due to a genuine passion for their careers, viewing them not merely as means of income but as areas of profound interest.  Consequently, post-education, it seems plausible that these individuals continue to devote more time to their professional pursuits.  However, as almost hypocritical as it may sound given the previous argument, it is worth  acknowledging the potential confounding variable of income.  Many high-paying professions, such as those in medicine in law, necessitate ongoing education and, also, involve demanding working hours.  These lucrative careers could influence the observed positive correlation between educational duration and weekly working hours, as individuals in such fields may be requied to invest significant time in their occuptions for reasons beyond passion alone.  Understanding and identifying the patterns in this study is interesting and important for several reasons.  Specifically, they could provide valuable insights for individuals planning their careers, helping them understand the potential time commitments associated with various levels of education.  This information can guide career decisions and expectations about work-life balance.  Employers and policymakers can benefit from insights into the relationship between education and working hours.  This knowledge can aid in workforce planning, identifying trends in labor market demands, and predicting future needs for skilled professionals.  
 
 
-## (2) Data 
+## (2) Data: This data set is sourced from the Machine Learning Repository of University of California, Irvine Census Income Data Set (UC Irvine).  The UCI page, though, mentions US Census Bureau as the original source of the data set.  The Census Bureau uses data from a variety of sources.  Some are collected from respondents and businesses directly through censuses and surveys they conduct.  Others come from pre-existing agencies; such data, known as "administrative data" are reused to cut the cost of data collection and research, as well as reduce the burden on people who respond to their census and survey questions.  
 
 
-## (3) Results
+## (3) Results:
 
+```{r}
+## Boxplot
+ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7) + 
+  labs(title = "Distribution of Hours Worked by Education Level",
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+## Results (Interpreting Boxplots): 
 
-## (4) Conclusion
+```{r}
+## Regression
+library(ggplot2)
+
+model <- lm(`hours-per-week` ~ `education-num`, data = data)
+
+ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "red", formula = y ~ x) + 
+  labs(title = "Relationship between Education and Hours Worked", 
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal()
+```
+## Results (Interpreting Regression): The coefficient for `education-num` is 0.71093.  This represents the estimated change in weekly working hours for each additional year of education.  In other words, for every extra year of schooling, individuals are etimated to work approximately 0.71 more hours per week.  The p-value associated with the coefficient is very close to zero (p-value: < 2e-16), indicating that the relationship between education duration and weekly working hours is statistically significant.  Said otherwise, the likelihood of observing such a relationship due to random change is extremely low.  The residuals provide information about the differences between the observed and predicted values.  The spread of residuals (ranging from -43.646 to 62.885) indicates the variability in weekly working hours that is not explained by the model.  The Multiple R-squared is 0.02194, qhich suggests that the model explains approximately 2.19% of the variance in weekly working hours.  This means that while the model is statistically significant, it does not account for a large proportion of variability in the data.  Determining causation in general from a regression model alone can be challenging.  While the coefficient here indicates an association, declaring causation requires addiional evidence, such as experimental design or controlling for potential confounding variables.  Therefore, it would be inappropriate to conclude a causal effect.  
+
+## (4) Conclusion:
