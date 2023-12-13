@@ -133,26 +133,20 @@ ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) +
         axis.text = element_text(size = 12, color = "darkblue"),
         plot.caption = element_text(hjust = 0, size = 10, color = "gray"))
 ```
-
 ```{r}
-
-install.packages("tibble")
-
-library(ggplot2)
-library(knitr)
-library(modelsummary)
-library(tibble)
-
 model <- lm(`hours-per-week` ~ `education-num`, data = data)
-
-summary_table <- summary(model)$coef |>
-  as.data.frame() |>
-  rownames_to_column(var = "Variable") |>
-  kable()
-
-cat(summary_table)
+summary(model)
 ```
 
+
+```{r}
+library(kableExtra)
+
+model <- lm(`hours-per-week` ~ `education-num`, data = data)
+summary_table <- as.data.frame(summary(model)$coefficients)
+kable(summary_table, "html") |>
+  kable_styling()
+```
 
 Results (Interpreting Regression): 
 
