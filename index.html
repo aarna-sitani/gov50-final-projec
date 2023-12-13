@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["adult.data.csv","adult.test.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.25/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["adult.data.csv","adult.test.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.25/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1473,6 +1473,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="index_files/header-attrs-2.25/header-attrs.js"></script>
+  <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1607,6 +1609,23 @@ analyzing political campaign finance, customer behavior in online retail, patter
 <p>At first glance, one may notice the relatively similar medians across different education levels centering around approximately 40 hours per week. Where the greater differences come in, though, is the spread. In observing both the interquartile range and the whiskers of the plot, it becomes apparent that there is much variability in the range of weekly working hours. The patterns of asymmetry and skewness is also an interesting factor to consider. Because the distribution is relatively asymmetric, it seems that the mean and median are not necessarily of similar values; the mean may be influenced by extreme values. Additionally, looking at the data up to about 8 years of education, the 75 percentile (Q3) mark is very close to the median value (Q2), but for the data above 8 years of education, the 25 percentile mark (Q1) is just touching the median value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Violin Plot</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>`education-num`</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>`hours-per-week`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>geom_violin</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"skyblue"</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Distribution of Hours Worked by Education Level"</span>, </span>
+<span>       x <span class='op'>=</span> <span class='st'>"Years of Education"</span>, </span>
+<span>       y <span class='op'>=</span> <span class='st'>"Hours per Week"</span>, </span>
+<span>       caption <span class='op'>=</span> <span class='st'>"Source: US Census Bureau"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p>Results (Interpreting Violin Plot):
+While we did not cover violin plots in class, I thought it would be interesting to provide deeper insight into the distribution of hours worked for each level of education, as it combines aspects of box plots and kernel density plots to visualize the density of the data. Comparing the location of the figures here against the data from the box plot leads to unsurprising findings, for this visualization too reveals a high frequency of 40 hours worked per week. The distribution of hours per week at 9 years of education, though, is particularly fascinating; there is much more variation at this amount of education compared to the other amounts of time spent in school.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Regression</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
 <span></span>
@@ -1625,13 +1644,103 @@ analyzing political campaign finance, customer behavior in online retail, patter
 <span>        axis.text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span>, color <span class='op'>=</span> <span class='st'>"darkblue"</span><span class='op'>)</span>,</span>
 <span>        plot.caption <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0</span>, size <span class='op'>=</span> <span class='fl'>10</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>`hours-per-week`</span> <span class='op'>~</span> <span class='va'>`education-num`</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = `hours-per-week` ~ `education-num`, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-43.646  -2.669   0.331   4.620  62.885 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     33.27088    0.27367  121.57   &lt;2e-16 ***
+`education-num`  0.71093    0.02631   27.03   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 12.21 on 32558 degrees of freedom
+Multiple R-squared:  0.02194,   Adjusted R-squared:  0.02191 
+F-statistic: 730.4 on 1 and 32558 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>`hours-per-week`</span> <span class='op'>~</span> <span class='va'>`education-num`</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='va'>summary_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>summary_table</span>, <span class='st'>"html"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+33.2708820
+</td>
+<td style="text-align:right;">
+0.2736741
+</td>
+<td style="text-align:right;">
+121.57115
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>education-num</code>
+</td>
+<td style="text-align:right;">
+0.7109294
+</td>
+<td style="text-align:right;">
+0.0263055
+</td>
+<td style="text-align:right;">
+27.02591
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <p>Results (Interpreting Regression):</p>
 <p>The coefficient for <code>education-num</code> is 0.71093. This represents the estimated change in weekly working hours for each additional year of education. In other words, for every extra year of schooling, individuals are estimated to work approximately 0.71 more hours per week. The p-value associated with the coefficient is very close to zero (p-value: &lt; 2e-16), indicating that the relationship between education duration and weekly working hours is statistically significant. Said otherwise, the likelihood of observing such a relationship due to random change is extremely low. The residuals provide information about the differences between the observed and predicted values. The spread of residuals (ranging from -43.646 to 62.885) indicates the variability in weekly working hours that is not explained by the model. The Multiple R-squared is 0.02194, which suggests that the model explains approximately 2.19% of the variance in weekly working hours. This means that while the model is statistically significant, it does not account for a large proportion of variability in the data. Determining causation in general from a regression model alone can be challenging. While the coefficient here indicates an association, declaring causation requires additional evidence, such as experimental design or controlling for potential confounding variables. Therefore, it would be inappropriate to conclude a causal effect.</p>
 <h2 id="conclusion">(4) Conclusion:</h2>
 <p>In this study, I explored the relationship between the duration of education and the number of hours individuals dedicate to work per week. The regression analysis supported my hypothesis, indicating a statistically significant positive association between years of education and weekly working hours. The coefficient of 0.71093 suggested that, on average, individuals can be expected to work approximately 0.71 more hours per week for each additional year of education. While statistically significant, the model explained only a modest proportion (2.19%) of the variance in weekly working hours. Despite the insights gained, several limitations and threats to inference should be acknowledged. Firstly, the cross-sectional nature of the study restricts our ability to establish causation. The observed association does not necessarily imply a causal relationship, and other factors may contribute to the patterns identified. The potential confounding variable of income poses a significant challenge to the analysis. High-paying professions, which often require extended education, may influence the positive correlation observed. Future research could benefit from controlling for income levels to better isolate the impact of education on working hours. Additionally, the limited explanatory power of the model (2.19% variance explained) suggests that other unexplored factors contribute to the variability in working hours. These factors might include individual preferences, industry-specific demands, or external life circumstances. Missing data or measurement errors in the data set could also introduce bias to the analysis. Given more time and resources, several enhancements to the analysis could be pursued. Firstly, a longitudinal study design would allow for a more nuanced exploration of the dynamic relationship between education and working hours over time. Controlling for additional variables, such as income and job industry, would strengthen the analysis by addressing potential confounding variables. Moreover, qualitative research methods, such as interviews of surveys, could provide deeper insights into individuals’ motivations and perceptions regarding their work commitments post-education.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

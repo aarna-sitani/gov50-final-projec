@@ -151,8 +151,10 @@ ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) +
         plot.caption = element_text(hjust = 0, size = 10, color = "gray"))
 ```
 ```{r}
+library(modelsummary)
 model <- lm(`hours-per-week` ~ `education-num`, data = data)
-summary(model)
+
+modelsummary(model)
 ```
 
 
