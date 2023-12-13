@@ -114,6 +114,23 @@ Results (Interpreting Boxplots):
 
 At first glance, one may notice the relatively similar medians across different education levels centering around approximately 40 hours per week.  Where the greater differences come in, though, is the spread. In observing both the interquartile range and the whiskers of the plot, it becomes apparent that there is much variability in the range of weekly working hours.  The patterns of asymmetry and skewness is also an interesting factor to consider.  Because the distribution is relatively asymmetric, it seems that the mean and median are not necessarily of similar values; the mean may be influenced by extreme values.  Additionally, looking at the data up to about 8 years of education, the 75 percentile (Q3) mark is very close to the median value (Q2), but for the data above 8 years of education, the 25 percentile mark (Q1) is just touching the median value.  
 
+
+```{r}
+## Violin Plot
+library(ggplot2)
+
+ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) + 
+  geom_violin(fill = "skyblue", alpha = 0.7) + 
+  labs(title = "Distribution of Hours Worked by Education Level", 
+       x = "Years of Education", 
+       y = "Hours per Week", 
+       caption = "Source: US Census Bureau") +
+  theme_minimal()
+```
+Results (Interpreting Violin Plot):
+While we did not cover violin plots in class, I thought it would be interesting to provide deeper insight into the distribution of hours worked for each level of education, as it combines aspects of box plots and kernel density plots to visualize the density of the data. Comparing the location of the figures here against the data from the box plot leads to unsurprising findings, for this visualization too reveals a high frequency of 40 hours worked per week.  The distribution of hours per week at 9 years of education, though, is particularly fascinating; there is much more variation at this amount of education compared to the other amounts of time spent in school. 
+
+
 ```{r}
 ## Regression
 library(ggplot2)
