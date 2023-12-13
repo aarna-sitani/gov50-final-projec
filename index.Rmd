@@ -10,7 +10,7 @@ output:
 
 ## Milestone #3
 
-```{r}
+```{r echo = FALSE}
 library(ggplot2)
 data <- read.csv("adult.data.csv")
 names(data)[c(5,13)] <- c("education-num", "hours-per-week")
@@ -26,7 +26,7 @@ ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) +
 
 ## Milestone #4
 
-```{r}
+```{r echo = FALSE}
 ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) +
   geom_boxplot(fill = "steelblue", alpha = 0.7) + 
   labs(title = "Distribution of Hours Worked by Education Level",
