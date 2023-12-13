@@ -1,11 +1,41 @@
 ---
-title: "Gov 50 Final Project"
+title: "Do people who receive more years of education ultimately spend more hours working per week?"
 author: "Aarna Sitani"
 description: "My final project"
 output:
   distill::distill_article:
     self_contained: false
 ---
+
+
+## Milestone #3
+
+```{r}
+library(ggplot2)
+data <- read.csv("adult.data.csv")
+names(data)[c(5,13)] <- c("education-num", "hours-per-week")
+ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) + 
+  geom_point(alpha = 0.5) + 
+  labs(title = "Relationship between Education and Hours Worked",
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal()
+
+```
+
+
+## Milestone #4
+
+```{r}
+ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7) + 
+  labs(title = "Distribution of Hours Worked by Education Level",
+       x = "Years of Education",
+       y = "Hours per Week") + 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 ## FINAL REPORT:
 
