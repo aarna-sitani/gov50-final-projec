@@ -8,9 +8,8 @@ output:
 ---
 
 
-## Milestone #3
 
-```{r echo = FALSE}
+```{r eval = FALSE, echo = FALSE}
 library(ggplot2)
 data <- read.csv("adult.data.csv")
 names(data)[c(5,13)] <- c("education-num", "hours-per-week")
@@ -24,9 +23,8 @@ ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) +
 ```
 
 
-## Milestone #4
 
-```{r echo = FALSE}
+```{r eval = FALSE, echo = FALSE}
 ggplot(data, aes(x = as.factor(`education-num`), y = `hours-per-week`)) +
   geom_boxplot(fill = "steelblue", alpha = 0.7) + 
   labs(title = "Distribution of Hours Worked by Education Level",
@@ -54,6 +52,9 @@ The Census Bureau uses data from a variety of sources.  Some are collected from 
 
 ```{r}
 library(ggplot2)
+
+data <- read.csv("adult.data.csv")
+names(data)[c(5,13)] <- c("education-num", "hours-per-week")
 
 ggplot(data, aes(x = `hours-per-week`)) +
   geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) +
@@ -141,23 +142,17 @@ ggplot(data, aes(x = `education-num`, y = `hours-per-week`)) +
 library(modelsummary)
 
 model <- lm(`hours-per-week` ~ `education-num`, data = data)
-
-modelsummary(model, stars = TRUE, tidy_names = list(`education-num` = "Years of Education"))
-```
-
-
-```{r}
-library(kableExtra)
-
-model <- lm(`hours-per-week` ~ `education-num`, data = data)
-summary_table <- as.data.frame(summary(model)$coefficients)
-kable(summary_table, "html") |>
-  kable_styling()
+var_labels <- c(
+  "(Intercept)" = "Intercept", "education-num" = "Years of Education")
+modelsummary::modelsummary(model, statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           coef_map = var_labels,
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
 ```
 
 Results (Interpreting Regression): 
 
-The coefficient for `education-num` is 0.71093.  This represents the estimated change in weekly working hours for each additional year of education.  In other words, for every extra year of schooling, individuals are estimated to work approximately 0.71 more hours per week.  The p-value associated with the coefficient is very close to zero (p-value: < 2e-16), indicating that the relationship between education duration and weekly working hours is statistically significant.  Said otherwise, the likelihood of observing such a relationship due to random change is extremely low.  The residuals provide information about the differences between the observed and predicted values.  The spread of residuals (ranging from -43.646 to 62.885) indicates the variability in weekly working hours that is not explained by the model.  The Multiple R-squared is 0.02194, which suggests that the model explains approximately 2.19% of the variance in weekly working hours.  This means that while the model is statistically significant, it does not account for a large proportion of variability in the data.  Determining causation in general from a regression model alone can be challenging.  While the coefficient here indicates an association, declaring causation requires additional evidence, such as experimental design or controlling for potential confounding variables.  Therefore, it would be inappropriate to conclude a causal effect.  
+The coefficient for `education-num` is 0.71093.  This represents the estimated change in weekly working hours for each additional year of education.  In other words, for every extra year of schooling, individuals are estimated to work approximately 0.71 more hours per week.  The p-value associated with the coefficient is very close to zero (p-value = <0.001), indicating that the relationship between education duration and weekly working hours is statistically significant.  Said otherwise, the likelihood of observing such a relationship due to random change is extremely low.  The residuals provide information about the differences between the observed and predicted values.  The spread of residuals (ranging from -43.646 to 62.885) indicates the variability in weekly working hours that is not explained by the model.  The Multiple R-squared is 0.02194, which suggests that the model explains approximately 2.19% of the variance in weekly working hours.  This means that while the model is statistically significant, it does not account for a large proportion of variability in the data.  Determining causation in general from a regression model alone can be challenging.  While the coefficient here indicates an association, declaring causation requires additional evidence, such as experimental design or controlling for potential confounding variables.  Therefore, it would be inappropriate to conclude a causal effect.  
 
 ## (4) Conclusion:
 In this study, I explored the relationship between the duration of education and the number of hours individuals dedicate to work per week.  The regression analysis supported my hypothesis, indicating a statistically significant positive association between years of education and weekly working hours.  The coefficient of 0.71093 suggested that, on average, individuals can be expected to work approximately 0.71 more hours per week for each additional year of education.  While statistically significant, the model explained only a modest proportion (2.19%) of the variance in weekly working hours.  Despite the insights gained, several limitations and threats to inference should be acknowledged.  Firstly, the cross-sectional nature of the study restricts our ability to establish causation.  The observed association does not necessarily imply a causal relationship, and other factors may contribute to the patterns identified.  The potential confounding variable of income poses a significant challenge to the analysis.  High-paying professions, which often require extended education, may influence the positive correlation observed.  Future research could benefit from controlling for income levels to better isolate the impact of education on working hours.  Additionally, the limited explanatory power of the model (2.19% variance explained) suggests that other unexplored factors contribute to the variability in working hours.  These factors might include individual preferences, industry-specific demands, or external life circumstances.  Missing data or measurement errors in the data set could also introduce bias to the analysis.  Given more time and resources, several enhancements to the analysis could be pursued.  Firstly, a longitudinal study design would allow for a more nuanced exploration of the dynamic relationship between education and working hours over time.  Controlling for additional variables, such as income and job industry, would strengthen the analysis by addressing potential confounding variables.  Moreover, qualitative research methods, such as interviews of surveys, could provide deeper insights into individuals' motivations and perceptions regarding their work commitments post-education. 
