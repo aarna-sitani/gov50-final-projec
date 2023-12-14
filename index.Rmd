@@ -1,5 +1,5 @@
 ---
-title: "Do people who receive more years of education ultimately spend more hours working per week?"
+title: "Do People Who Receive More Years of Education Ultimately Spend More Hours Working Per Week?"
 author: "Aarna Sitani"
 description: "My final project"
 output:
